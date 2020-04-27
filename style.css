@@ -1,5 +1,5 @@
 /* calendar */
-.calendar {
+#calendar {
     position: absolute;
     background: #f1f1f1;
     display: block; 
