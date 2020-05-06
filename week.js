@@ -28,32 +28,44 @@
 //         tbl.appendChild(newDay)
 
 //     }
-// window.onload = calendar;
+
 window.onload = function(){
 function calendar() {
   let locate = moment.locale();
   const now = moment(); // wt
-  const firstDayOfWeek = moment().startOf("week");
-  const clone = firstDayOfWeek.clone();
-  let x1 = clone.add({ days: 2 });
-  const lastDayOfWeek = moment().endOf("week");
+ document.getElementById("now").innerHTML = now;
+
+
+// do html atkualna data jest wrzuccam ana podstawie now
+
+  const firstDayOfWeek = now.clone().startOf("week");
+  console.log(firstDayOfWeek)
+  
+  const lastDayOfWeek = now.clone().endOf("week");
   const arrayOfWeekOfMoment = [];
 
   for (let i = 0; i < 7; i++) {
     const clone = firstDayOfWeek.clone();
     const x1 = clone.add({ days: i });
     arrayOfWeekOfMoment.push(x1);
-    const tbl = document.getElementById("ul");
-    const newDay = document.createElement('li');
-    newDay.innerHTML = x1;
-    tbl.appendChild(newDay)
+
   }
-  console.log(arrayOfWeekOfMoment);
-  // const arrayOfWeekOfMoment = [...] - od firstDayOfWeek do lastDayOfWeek
-  // const arrayOfWeekOfDates = [...] - od firstDayOfWeek do lastDayOfWeek w formacie “DD.MM.YYYY”
+  console.log(arrayOfWeekOfMoment);  
+  const arrayOfWeekOfDates = arrayOfWeekOfMoment.map(function(el){
+    return el.format('DD.MM.YYYY')
+  });
+  const tbl = document.getElementById("ul");
+  arrayOfWeekOfDates.forEach(myFunction);
+  function myFunction(item) {
+    document.getElementById("ul").innerHTML += item + "<br>";
+  }
+    console.log(arrayOfWeekOfDates);
+    const btnPrevious = document.getElementById("previous");
+    const btnNext = document.getElementById("next");  
 }
 return calendar()
 
 }
+
 
 
