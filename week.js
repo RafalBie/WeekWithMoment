@@ -8,10 +8,18 @@
 // - przeszłość ma być zaznaczona na ciemnoszary kolor fontu
 // - przyszłość tydzień w przód kolor fontu ma mieć jasno zielony
 // - nad kalendarzem w górze ma się wyświetlać godzina zgodna z lokalizacją
+let locate = moment.locale();
+const now = moment(); 
+document.getElementById("now").innerHTML = now;
 function getWeekData() {
-  let locate = moment.locale();
-  const now = moment(); // wt
- document.getElementById("now").innerHTML = now;
+  function displayWeek(event) {
+    week.textContent = `Display ${event}`;
+    event.preventDefault();
+  }
+  const form = document.getElementById('form');
+  const btnPrevious = document.getElementById("previous");
+  form.addEventListener('submit', displayWeek);
+
   const firstDayOfWeek = now.clone().startOf("week");
   const lastDayOfWeek = now.clone().endOf("week");
   const arrayOfWeekOfMoment = [];
@@ -41,7 +49,14 @@ function calendar() {
 return calendar()
 
 }
-const btnPrevious = document.getElementById("previous");
+// const btnPrevious = document.getElementById("previous");
+// btnPrevious.addEventListener("click", function() {
+//   console.log("Kliknąłem na button prevois");
+// });
 const btnNext = document.getElementById("next");  
+btnNext.addEventListener("click", function() {
+  console.log("Kliknąłem na button Next");
+});
+
 
 
