@@ -10,37 +10,37 @@
 // - nad kalendarzem w górze ma się wyświetlać godzina zgodna z lokalizacją
 
 // ustaw locale i i daj moment now
-let locate = moment.locale()
+let locate = moment.locale();
 const now = moment();
 
-function showActualDate(date){
-  date = document.getElementById('now');
-  date.innerHTML = now.format('DD.MM.YYYY');
+function showActualDate(date) {
+  date = document.getElementById("now");
+  date.innerHTML = now.format("DD.MM.YYYY");
 }
 getWeekData(now);
 function getWeekData(date) {
-  date=now;
-	const firstDayOfWeek = date.clone().startOf('week');
-  const lastDayOfWeek = date.clone().endOf('week');
-	const arrayOfWeekOfMoment = []
-	for (let i = 0; i < 7; i++) {
-		const clone = firstDayOfWeek.clone()
-		const nextDay = clone.add({ days: i })
-		arrayOfWeekOfMoment.push(nextDay)
-	}
-	return arrayOfWeekOfMoment
+  date = now;
+  const firstDayOfWeek = date.clone().startOf("week");
+  const lastDayOfWeek = date.clone().endOf("week");
+  const arrayOfWeekOfMoment = [];
+  for (let i = 0; i < 7; i++) {
+    const clone = firstDayOfWeek.clone();
+    const nextDay = clone.add({ days: i });
+    arrayOfWeekOfMoment.push(nextDay);
+  }
+  return arrayOfWeekOfMoment;
 }
 // console.log(getWeekData());
 function convertWeekToDates(weekData) {
-	const arrayOfWeekOfDates = weekData.map(function(el) {
-		return el.format('DD.MM.YYYY')
-	})
-	return arrayOfWeekOfDates
+  const arrayOfWeekOfDates = weekData.map(function(el) {
+    return el.format("DD.MM.YYYY");
+  });
+  return arrayOfWeekOfDates;
 }
 console.log();
 
-function showWeek(week){
-  const calendarBody = document.getElementById('calendar-body') // #week
+function showWeek(week) {
+  const calendarBody = document.getElementById("calendar-body"); // #week
   // dodać <tr></tr>
   const tr = document.createElement("tr");
   calendarBody.appendChild(tr);
@@ -52,74 +52,60 @@ function showWeek(week){
     tr.appendChild(td);
   }
 
-  week.forEach(showSingleDay)
+  week.forEach(showSingleDay);
 }
-
 
 function generateWeekCalendar(date) {
   // pokaż aktualną datę
   showActualDate(date);
-  console.log(showActualDate())
+  console.log(showActualDate());
 
   // na podstawie aktualnej daty wygeneruj tydzień momentów
-  const weekOfMoments = getWeekData(date)
-  console.log(weekOfMoments)
+  const weekOfMoments = getWeekData(date);
+  console.log(weekOfMoments);
 
   // na podstawie week data wygeneruj array z datami w formie stringów
-  const weekOfDates = convertWeekToDates(weekOfMoments)
-  console.log(weekOfDates)
+  const weekOfDates = convertWeekToDates(weekOfMoments);
+  console.log(weekOfDates);
 
-  showWeek(weekOfDates)
+  showWeek(weekOfDates);
 }
 
-
-
-function handleFormToChangeWeek(){
-
-
+function handleFormToChangeWeek() {
   // przechwycic formularz
   // przechwycic input[type=date] tego formularza
   // przechwycić kliknięcie w przycisk
   // użytkownik klika w przycisk -> console.log(wartość z tego inputa)
-const form = document.getElementById('form');
-const input =  document.getElementById("inp");
-const btnPrevious = document.getElementById('previous')
-	form.addEventListener('submit', function(e){
-   input.value = "";
+  const form = document.getElementById("form");
+  const input = document.getElementById("inp");
+  const btnPrevious = document.getElementById("previous");
+  form.addEventListener("submit", function(e) {
+    input.value = "";
   });
-  btnPrevious.addEventListener('click', function(e){
- console.log(input)
+  btnPrevious.addEventListener("click", function(e) {
+    console.log(input);
   });
 
-
-	// function displayWeek(event) {
-	// 	week.textContent = `Display ${event}`
-	// 	event.preventDefault()
+  // function displayWeek(event) {
+  // 	week.textContent = `Display ${event}`
+  // 	event.preventDefault()
   // }
-  
-	
-
 }
-
-
 
 window.onload = function() {
-  generateWeekCalendar()
-  handleFormToChangeWeek()
-}
+  generateWeekCalendar();
+  handleFormToChangeWeek();
+};
 
 // const btnPrevious = document.getElementById("previous");
 // btnPrevious.addEventListener("click", function() {
 //   console.log("Kliknąłem na button prevois");
 // });
 
-
-
-
-const btnNext = document.getElementById('next')
-btnNext.addEventListener('click', function() {
-	console.log('Kliknąłem na button Next')
-})
+const btnNext = document.getElementById("next");
+btnNext.addEventListener("click", function() {
+  console.log("Kliknąłem na button Next");
+});
 
 // const btnPrev = document.getElementById('previous')
 // btnPrev.addEventListener('click', function() {
