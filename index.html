@@ -17,13 +17,14 @@
   <body>
     <div id="calendar">
       <div class="form-inline">
+
+
         <form id="form">
-          <label> <input type="text"></label>
-          <br><br>
-          <br>
-          <button class="btn btn-outline-primary col-sm-6" type="submit" id="previous">Previous</button>
-          <button class="btn btn-outline-primary col-sm-6" id="next" >Next</button>
+          <input type="date" id ="inp" value="">
+          <button type="submit">Zmień tydzień</button>
         </form>
+
+
         <p id="log"></p>
         
     </div>
@@ -31,6 +32,11 @@
     <div id ="now">  
 
     </div>
+       <button class="btn btn-outline-primary col-sm-6" type="submit" id="previous">Previous</button>
+    
+          <button class="btn btn-outline-primary col-sm-6" id="next" >Next</button>
+
+
     <table class="table table-bordered table-responsive-sm" id= "ul" >
       <thead>
       <tr id ="week">
@@ -45,8 +51,9 @@
       </thead>
 
       <tbody id="calendar-body">
-
+          
       </tbody>
+ 
   </table>
       </div>
     </div>
