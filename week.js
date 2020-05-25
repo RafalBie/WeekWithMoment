@@ -11,15 +11,19 @@
 
 // ustaw locale i i daj moment now
 let locate = moment.locale();
-const now = moment();
+let now = moment();
+
+
 
 function showActualDate(date) {
-  date = document.getElementById("now");
-  date.innerHTML = now.format("DD.MM.YYYY");
+  const dateViewer = document.getElementById("now");
+  dateViewer.innerHTML = date.format("DD.MM.YYYY");
 }
-getWeekData(now);
+console.log(showActualDate(now))
+
+
 function getWeekData(date) {
-  date = now;
+  // date = now;
   const firstDayOfWeek = date.clone().startOf("week");
   const lastDayOfWeek = date.clone().endOf("week");
   const arrayOfWeekOfMoment = [];
@@ -30,6 +34,8 @@ function getWeekData(date) {
   }
   return arrayOfWeekOfMoment;
 }
+
+
 // console.log(getWeekData());
 function convertWeekToDates(weekData) {
   const arrayOfWeekOfDates = weekData.map(function(el) {
@@ -37,18 +43,20 @@ function convertWeekToDates(weekData) {
   });
   return arrayOfWeekOfDates;
 }
-console.log();
+// console.log(arrayOfWeekOfDates);
 
 function showWeek(week) {
   const calendarBody = document.getElementById("calendar-body"); // #week
   // dodać <tr></tr>
   const tr = document.createElement("tr");
   calendarBody.appendChild(tr);
+
   function showSingleDay(item) {
     // .appendChild - lepiej to
     // dodać dla każdego dnia <td>string z datą</td>
     const td = document.createElement("td");
-    td.innerHTML = showActualDate(item);
+    // console.log(item)
+    td.innerHTML = item
     tr.appendChild(td);
   }
 
@@ -58,7 +66,7 @@ function showWeek(week) {
 function generateWeekCalendar(date) {
   // pokaż aktualną datę
   showActualDate(date);
-  console.log(showActualDate());
+  console.log(showActualDate(date));
 
   // na podstawie aktualnej daty wygeneruj tydzień momentów
   const weekOfMoments = getWeekData(date);
@@ -69,38 +77,74 @@ function generateWeekCalendar(date) {
   console.log(weekOfDates);
 
   showWeek(weekOfDates);
+  // console.log(showWeek(weekOfDates))
+  // showWeek(window.calendarStartDate)
+
+ 
+  
+  
+
 }
 
 function handleFormToChangeWeek() {
   // przechwycic formularz
+  const form = document.getElementById("form");
+
   // przechwycic input[type=date] tego formularza
+  const input = document.getElementById("inp");
+
   // przechwycić kliknięcie w przycisk
   // użytkownik klika w przycisk -> console.log(wartość z tego inputa)
-  const form = document.getElementById("form");
-  const input = document.getElementById("inp");
-  const btnPrevious = document.getElementById("previous");
-  form.addEventListener("submit", function(e) {
-    input.value = "";
-  });
-  btnPrevious.addEventListener("click", function(e) {
-    console.log(input);
+  form.addEventListener("submit", function(event) {
+    event.preventDefault()
+
+    // na podstawie input.value
+    console.log(moment(input.value));
+    window.calendarStartDate = input.value;
+
+    // w jakiś sposób przerzucić wartośc input.value
+    // do generateWeekCalendar jako obiekt typu moment
+
   });
 
-  // function displayWeek(event) {
-  // 	week.textContent = `Display ${event}`
-  // 	event.preventDefault()
-  // }
 }
 
-window.onload = function() {
-  generateWeekCalendar();
+
+
+
+function onInit(){
+ 
+  // console.log(now)
+
+  generateWeekCalendar(window.calendarStartDate);
   handleFormToChangeWeek();
+
+  // getWeekData(now);
+
+}
+
+
+window.onload = function() {
+  window.calendarStartDate = moment()
+  onInit()
+  
 };
 
-// const btnPrevious = document.getElementById("previous");
-// btnPrevious.addEventListener("click", function() {
-//   console.log("Kliknąłem na button prevois");
-// });
+
+// zrobić to samo co z input.value
+
+const btnPrevious = document.getElementById("previous");
+btnPrevious.addEventListener("click", function(e) {
+console.log(window.calendarStartDate)
+//   // w tym miejscu
+  // musisz przechwycić now
+  // dodać tydzień lub odjąc tydzień
+  // do generateWeekCalendar jako obiekt typu moment
+const newDate = window.calendarStartDate;
+return newDate
+
+  
+});
 
 const btnNext = document.getElementById("next");
 btnNext.addEventListener("click", function() {
