@@ -14,28 +14,23 @@ let locate = moment.locale();
 let now = moment();
 window.CALENDAR_DATE = moment();
 
-
 // dateString - string - '03.03.2020'
 // dateMoment - moment - moment('03.03.2020')
 // dateMoment.format("DD.MM.YYYY") => dateString;
 
 // dateWithMoment.add(date,'week');
 
-
-
 function showActualDate(date) {
   const dateViewer = document.getElementById("now");
   dateViewer.innerHTML = date.format("DD.MM.YYYY");
-
 }
 
 // showActualDate(window.CALENDAR_DATE)
 
-
 function getWeekData(date) {
   // date = now;
   const firstDayOfWeek = date.clone().startOf("week");
-  console.log(firstDayOfWeek)
+  console.log(firstDayOfWeek);
   const lastDayOfWeek = date.clone().endOf("week");
   const arrayOfWeekOfMoment = [];
   for (let i = 0; i < 7; i++) {
@@ -45,7 +40,6 @@ function getWeekData(date) {
   }
   return arrayOfWeekOfMoment;
 }
-
 
 function convertWeekToDates(weekData) {
   const arrayOfWeekOfDates = weekData.map(function(el) {
@@ -89,8 +83,6 @@ function generateWeekCalendar(date) {
   showWeek(weekOfDates);
   // console.log(showWeek(weekOfDates))
   // showWeek(window.calendarStartDate)
-
-
 }
 
 function handleFormToChangeWeek() {
@@ -103,7 +95,7 @@ function handleFormToChangeWeek() {
   // przechwycić kliknięcie w przycisk
   // użytkownik klika w przycisk -> console.log(wartość z tego inputa)
   form.addEventListener("submit", function(event) {
-    event.preventDefault()
+    event.preventDefault();
 
     // na podstawie input.value
     console.log(moment(input.value));
@@ -111,32 +103,21 @@ function handleFormToChangeWeek() {
 
     // w jakiś sposób przerzucić wartośc input.value
     // do generateWeekCalendar jako obiekt typu moment
-
   });
-
 }
 
-
-
-
-function onInit(){
- 
+function onInit() {
   // console.log(now)
 
   generateWeekCalendar(window.CALENDAR_DATE);
   handleFormToChangeWeek();
 
-
   // getWeekData(now);
-
 }
 
-
 window.onload = function() {
-  onInit()
-  
+  onInit();
 };
-
 
 // zrobić to samo co z input.value
 
@@ -144,22 +125,19 @@ const btnPrevious = document.getElementById("previous");
 btnPrevious.addEventListener("click", function(e) {
   // console.log(window.CALENDAR_DATE)
   //   // w tym miejscu
-    // musisz przechwycić now
-    // odjąc tydzień
-    // do generateWeekCalendar jako obiekt typu moment
+  // musisz przechwycić now
+  // odjąc tydzień
+  // do generateWeekCalendar jako obiekt typu moment
 
-    // 
-    const previousWeek = moment(window.CALENDAR_DATE).subtract(7,'days');
-    generateWeekCalendar(previousWeek);
-  
-
-  
+  //
+  const previousWeek = moment(window.CALENDAR_DATE).subtract(7, "days");
+  generateWeekCalendar(previousWeek);
 });
 
 const btnNext = document.getElementById("next");
 btnNext.addEventListener("click", function() {
-  const nextWeek = moment(window.CALENDAR_DATE).add(7,'days');
-    generateWeekCalendar(nextWeek);
+  const nextWeek = moment(window.CALENDAR_DATE).add(7, "days");
+  generateWeekCalendar(nextWeek);
 });
 
 // const btnPrev = document.getElementById('previous')
