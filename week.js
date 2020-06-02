@@ -23,9 +23,11 @@ window.CALENDAR_DATE = moment();
 function showActualDate(date) {
   const dateViewer = document.getElementById("now");
   dateViewer.innerHTML = date.format("DD.MM.YYYY");
+  // dateViewer.style.color = "#00ff00";
+
 }
 
-// showActualDate(window.CALENDAR_DATE)
+// showActualDate(now)
 
 function getWeekData(date) {
   // date = now;
@@ -60,25 +62,29 @@ function showWeek(week) {
     // dodać dla każdego dnia <td>string z datą</td>
     const td = document.createElement("td");
     // console.log(item)
+  
     td.innerHTML = item;
     tr.appendChild(td);
+    
   }
-
+ 
   week.forEach(showSingleDay);
 }
 
 function generateWeekCalendar(date) {
   // pokaż aktualną datę
   showActualDate(date);
+
   console.log(showActualDate(date));
 
   // na podstawie aktualnej daty wygeneruj tydzień momentów
   const weekOfMoments = getWeekData(date);
   console.log(weekOfMoments);
-
+ 
   // na podstawie week data wygeneruj array z datami w formie stringów
   const weekOfDates = convertWeekToDates(weekOfMoments);
   console.log(weekOfDates);
+  
 
   showWeek(weekOfDates);
   // console.log(showWeek(weekOfDates))
@@ -100,6 +106,8 @@ function handleFormToChangeWeek() {
     // na podstawie input.value
     console.log(moment(input.value));
     window.CALENDAR_DATE = moment(input.value);
+    document.getElementById("calendar-body").innerHTML = "";
+    generateWeekCalendar(window.CALENDAR_DATE);
 
     // w jakiś sposób przerzucić wartośc input.value
     // do generateWeekCalendar jako obiekt typu moment
@@ -131,12 +139,17 @@ btnPrevious.addEventListener("click", function(e) {
 
   //
   const previousWeek = moment(window.CALENDAR_DATE).subtract(7, "days");
+  document.getElementById("calendar-body").innerHTML = "";
+  document.getElementById("calendar-body").style.color = "#808080";
   generateWeekCalendar(previousWeek);
+ 
 });
 
 const btnNext = document.getElementById("next");
 btnNext.addEventListener("click", function() {
   const nextWeek = moment(window.CALENDAR_DATE).add(7, "days");
+  document.getElementById("calendar-body").innerHTML = "";
+  document.getElementById("calendar-body").style.color = "#00ff00";
   generateWeekCalendar(nextWeek);
 });
 
