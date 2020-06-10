@@ -26,27 +26,25 @@ function showActualDate(date) {
   // dateViewer.style.color = "#00ff00";
 }
 
-console.log(showActualDate(moment()));
+// console.log(showActualDate(moment()));
 
 function getWeekData(date) {
-  // date = now;
+
   const firstDayOfWeek = date.clone().startOf("week");
-  console.log(firstDayOfWeek);
   const lastDayOfWeek = date.clone().endOf("week");
-  const arrayOfWeekOfMoment = [];
+  
+  const arrayOfWeekOfMoments = [];
+
   for (let i = 0; i < 7; i++) {
     const clone = firstDayOfWeek.clone();
     const nextDay = clone.add({ days: i });
-    arrayOfWeekOfMoment.push(nextDay);
+    arrayOfWeekOfMoments.push(nextDay);
   }
-  return arrayOfWeekOfMoment;
+  return arrayOfWeekOfMoments;
 }
 
 function convertWeekToDates(weekData) {
-  const arrayOfWeekOfDates = weekData.map(function(el) {
-    return el.format("DD.MM.YYYY");
-  });
-  return arrayOfWeekOfDates;
+  return weekData.map((el) => el.format("DD.MM.YYYY"))
 }
 // console.log(arrayOfWeekOfDates);
 
@@ -65,16 +63,22 @@ function showWeek(week) {
     const momentItem = moment(item, "DD.MM.YYYY");
     // console.log(momentItem.format("DD.MM.YYYY"),now.format("DD.MM.YYYY"));
 
-    if (momentItem.isAfter(now, 6, "day")) {
-      td.style.color = "#008000	";
+    if (momentItem.isAfter(now, 7, "day")) {
+      // .future
+      td.style.color = "#008000";
     }
-    if (momentItem.isBefore(now, 6, "day")) {
+    if (momentItem.isBefore(now, 7, "day")) {
+      // .past
+      // td.addClass('past')
       td.style.color = "#808080";
     }
     if (momentItem.isSame(now, "day")) {
+      // .today
       td.style.color = "#00ff00";
     }
+
     td.innerHTML = item;
+
     tr.appendChild(td);
   }
 
@@ -85,15 +89,15 @@ function generateWeekCalendar(date) {
   // pokaż aktualną datę
   showActualDate(date);
 
-  console.log(showActualDate(date));
+  // console.log(showActualDate(date));
 
   // na podstawie aktualnej daty wygeneruj tydzień momentów
   const weekOfMoments = getWeekData(date);
-  console.log(weekOfMoments);
+  // console.log(weekOfMoments);
 
   // na podstawie week data wygeneruj array z datami w formie stringów
-  const weekOfDates = convertWeekToDates(weekOfMoments);
-  console.log(weekOfDates);
+  const weekOfDates = convertWeekToDates(weekOfMoments); // convertWeekToDateStrings
+  // console.log(weekOfDates);
 
   showWeek(weekOfDates);
   // console.log(showWeek(weekOfDates))
@@ -123,43 +127,41 @@ function handleFormToChangeWeek() {
   });
 }
 
+function handleButtonEvents(){
+  const btnPrevious = document.getElementById("previous");
+  btnPrevious.addEventListener("click", function(e) {
+    //
+    const previousWeek = moment(window.CALENDAR_DATE).subtract(7, "days");
+    document.getElementById("calendar-body").innerHTML = "";
+    // document.getElementById("calendar-body").style.color = "#808080";
+    generateWeekCalendar(previousWeek);
+  });
+  
+  const btnNext = document.getElementById("next");
+  btnNext.addEventListener("click", function() {
+    const nextWeek = moment(window.CALENDAR_DATE).add(7, "days");
+    document.getElementById("calendar-body").innerHTML = "";
+    // document.getElementById("calendar-body").style.color = "#00ff00";
+    generateWeekCalendar(nextWeek);
+  });
+}
+
+
 function onInit() {
-  // console.log(now)
 
   generateWeekCalendar(window.CALENDAR_DATE);
   handleFormToChangeWeek();
+  handleButtonEvents()
 
-  // getWeekData(now);
 }
 
 window.onload = function() {
   onInit();
 };
 
+
 // zrobić to samo co z input.value
 
-const btnPrevious = document.getElementById("previous");
-btnPrevious.addEventListener("click", function(e) {
-  // console.log(window.CALENDAR_DATE)
-  //   // w tym miejscu
-  // musisz przechwycić now
-  // odjąc tydzień
-  // do generateWeekCalendar jako obiekt typu moment
-
-  //
-  const previousWeek = moment(window.CALENDAR_DATE).subtract(7, "days");
-  document.getElementById("calendar-body").innerHTML = "";
-  // document.getElementById("calendar-body").style.color = "#808080";
-  generateWeekCalendar(previousWeek);
-});
-
-const btnNext = document.getElementById("next");
-btnNext.addEventListener("click", function() {
-  const nextWeek = moment(window.CALENDAR_DATE).add(7, "days");
-  document.getElementById("calendar-body").innerHTML = "";
-  // document.getElementById("calendar-body").style.color = "#00ff00";
-  generateWeekCalendar(nextWeek);
-});
 
 // const btnPrev = document.getElementById('previous')
 // btnPrev.addEventListener('click', function() {

@@ -1,0 +1,34 @@
+body {
+	font: 18px 'Open Sans', Helvetica, sans-serif;
+	line-height: 28px;
+	margin: 0;
+  background-color:rgb(204, 51, 51);
+}
+
+.wrapper {
+	box-sizing: border-box;
+	background: #eee;
+	margin: 40px auto;
+	height: 10000px;
+	width: 90%;
+	max-width: 800px;
+	padding: 30px;
+}
+.with_progress_reading_bar{
+
+}
+
+/* .wrapper.wrapper--overflow {
+	height: 400px;
+	overflow-y: scroll;
+}
+
+h1 {
+	margin: 0 0 20px 0;
+}
+
+.wrapper img {
+	margin: 0 0 15px 0;
+	width: 100%;
+	height: auto;
+} */
