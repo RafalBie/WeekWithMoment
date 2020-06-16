@@ -1,4 +1,3 @@
-
 // Przygotuj klasę .with-progress-reading-bar, która:
 
 // - wizualnie tworzy nad elementem progress bar, który jest niebieski
@@ -7,25 +6,21 @@
 
 // - progress bar powienien być sticky do górnej krawędzi ekranu w obrębie elementu z klasą .with-progress-reading-bar / jeśli przecina się z górną krawędzią okna
 
+function addReadingProgressBars() {
+  // znaleźć elementy z klasą .with-progress-reading-bar
+  const winScroll = document.documentElement.scrollTop;
+  console.log(winScroll);
+  const height = document.documentElement.scrollHeight;
+  console.log(height);
+  const scrolled = (winScroll / height) * 100;
+  console.log(scrolled);
+  document.getElementById("myBar").style.width = scrolled + "%";
 
-function addReadingProgressBars(){
-    // znaleźć elementy z klasą .with-progress-reading-bar
-    const wrapper = document.querySelector('div');
-    let wrapperY = 150;
-    wrapper.style.top = wrapperY + "px";
-  wrapper.addEventListener('mousemove', (e)=> {
-  wrapperY = e.clientY;
-  wrapper.style.top = wrapperY + "px";
-  console.log("ruszamy myszka")
-
-})
-    // dla każdego z tych elemementów odzyskać jego pozycje i wymiary
+  // dla każdego z tych elemementów odzyskać jego pozycje i wymiary
 }
 
-
-window.onload = function() {
-    addReadingProgressBars();
-  };
-  
+window.onscroll = function() {
+  addReadingProgressBars();
+};
 
 // https://www.jqueryscript.net/demo/Top-Scroll-Progress-Indicator-Plugin-With-jQuery-Scrollgress/
